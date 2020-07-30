@@ -1,10 +1,10 @@
 {
-  "_id": "dorothea",
+  "_id": "progeny",
   "input_files": [
     {
       "name": "input_reads",
-      "description": "Gene expression matrix with genes (HGNC/MGI symbols) in rows and samples in columns.",
-      "help": "The object can be a simple matrix/data frame or complexer objects such as ExpressionSet Seurat or SingleCellExperiment objects.",
+      "description": "Gene expression matrix with HGNC/MGI symbols in rows and samples in columns.",
+      "help": "In order to run PROGENy in single-cell RNAseq data, it also accepts Seurat and SingleCellExperiment object, taking the normalized counts for the computation.",
       "file_type": [
         "CSV"
       ],
@@ -18,7 +18,7 @@
   "input_files_public_dir": [],
   "input_files_combinations": [
     {
-      "description": "Gene expression matrix with genes (HGNC/MGI symbols) in rows and samples in columns.",
+      "description": "Gene expression matrix with HGNC/MGI symbols in rows and samples in columns.",
       "input_files": [
         "input_reads"
       ]
@@ -26,56 +26,50 @@
   ],
   "arguments": [
     {
-      "name": "confidence_level",
-      "description": "Confidence level based on the number of supporting evidence.",
-      "help": "The confidence assigment comprises five levels, ranging from A (highest confidence) to E (lowest confidence).",
+      "name": "organism",
+      "description": "The model organism",
+      "help": "Human or Mouse",
       "type": "enum_multiple",
       "enum_items": {
         "description": [
-          "A",
-          "B",
-          "C",
-          "D",
-          "E"
+          "Human",
+          "Mouse"
         ],
         "name": [
-          "A",
-          "B",
-          "C",
-          "D",
-          "E"
+          "Human",
+          "Mouse"
         ]
       },
       "default": [
-        "A,B,C"
+        "Human"
       ]
     },
     {
-      "name": "minsize",
-      "description": "Minimal number of genes in regulons.",
-      "help": "Number of genes targeted by a specific transcription factor.",
-      "type": "integer",
-      "default": 5
+      "name": "zscores",
+      "description": "Return z-score directly or normalized.",
+      "help": "The normalized z-score values range between -1 and 1.",
+      "type": "character",
+      "default": "TRUE"
     },
     {
-      "name": "top_n",
-      "description": "Number of transcription factors to display in bar plots",
-      "help": "The normalized enrichment scores (NES) of the top N transcription factors will be displayed in the bar plot",
+      "name": "top",
+      "description": "Number of genes to create the model matrix.",
+      "help": "The top n genes are selected according to significance (p-value).",
       "type": "integer",
-      "default": 25
+      "default": 100
     }
   ],
   "output_files": [
     {
-      "name": "dorothea_scores",
+      "name": "progeny_scores",
       "required": true,
       "allow_multiple": false,
       "file": {
         "file_type": "CSV",
-        "data_type": "dorothea_scores",
+        "data_type": "progeny_scores",
         "meta_data": {
           "visible": true,
-          "description": "Normalized enrichment scores for Transciption Factors"
+          "description": "A matrix with z-scores where samples are in columns and pathways in rows."
         }
       }
     }

@@ -10,40 +10,37 @@
     "arguments": [
         {
             "name": "execution",
-            "value": "/home/user/vre_dorothea_executor/tests/basic/run000"
+            "value": "/home/user/vre_progeny_executor/tests/basic/run000"
         },
         {
             "name": "project",
             "value": "test"
         },
         {
-            "name": "confidence_level",
-            "value": [
-                "A",
-                "B",
-                "C"
-            ]
+            "name": "organism",
+            "value": "Human"
+
         },
         {
-            "name": "minsize",
-            "value": 5
+            "name": "zscores",
+            "value": "TRUE"
         },
         {
-            "name": "method",
-            "value": "scale"
+            "name": "top",
+            "value": 100
         }
     ],
     "output_files": [
         {
-            "name": "dorothea_scores",
+            "name": "progeny_scores",
             "required": true,
             "allow_multiple": false,
             "file": {
                 "file_type": "CSV",
-                "data_type": "dorothea_scores",
+                "data_type": "progeny_scores",
                 "meta_data": {
                     "visible": true,
-                    "description": "Normalized enrichment scores for Transciption Factors"
+                    "description": "Z-scores for cancer-related pathways"
                 }
             }
         }

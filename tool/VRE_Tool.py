@@ -22,24 +22,24 @@ import time
 
 from basic_modules.tool import Tool
 from utils import logger
-from lib.dorothea import Dorothea
+from lib.progeny import Progeny
 
 
 class RUNNER(Tool):
     """
-    This is a class for Dorothea Tool module.
+    This is a class for Progeny Tool module.
     """
 
-    MASKED_KEYS = {'execution', 'project', 'description', 'confidence_level', 'minsize', 'method'}  # arguments from config.json
-    R_SCRIPT_PATH = "/home/user/vre_dorothea_executor/lib/run_dorothea.r"
-    TAR_FILENAME = "dorothea_plots.tar.gz"
+    MASKED_KEYS = {'execution', 'project', 'description', 'organism', 'zscores', 'top'}  # arguments from config.json
+    R_SCRIPT_PATH = "/home/user/vre_progeny_executor/lib/run_progeny.r"
+    TAR_FILENAME = ""
     debug_mode = False  # If True debug mode is on, False otherwise
 
     def __init__(self, configuration=None):
         """
         Init function
         """
-        logger.debug("VRE Dorothea runner")
+        logger.debug("VRE Progeny runner")
         Tool.__init__(self)
 
         if configuration is None:
@@ -52,14 +52,14 @@ class RUNNER(Tool):
             if isinstance(v, list):
                 self.configuration[k] = ' '.join(v)
 
-        self.dorothea = Dorothea()
+        self.progeny = Progeny()
         self.outputs = dict()
         self.execution_path = None
         self.img_path = None
 
-    def execute_dorothea(self, input_files, arguments):  # pylint: disable=no-self-use
+    def execute_progeny(self, input_files, arguments):  # pylint: disable=no-self-use
         """
-        The main function to run the remote Dorothea
+        The main function to run the remote Progeny
 
         param input_files: List of input files - In this case there are no input files required.
         :type input_files: dict
@@ -77,10 +77,10 @@ class RUNNER(Tool):
 
             print(arguments)
 
-            # Dorothea execution
-            process = self.dorothea.execute_dorothea_rscript(csv_input_path, arguments, self.R_SCRIPT_PATH)
+            # Progeny execution
+            process = self.progeny.execute_progeny_rscript(csv_input_path, arguments, self.R_SCRIPT_PATH)
 
-            # Sending the Dorothea execution stdout to the log file
+            # Sending the Progeny execution stdout to the log file
             for line in iter(process.stderr.readline, b''):
                 print(line.rstrip().decode("utf-8").replace("", " "))
 
@@ -93,10 +93,10 @@ class RUNNER(Tool):
                 logger.progress("Something went wrong inside the R execution. See logs", status="WARNING")
 
             else:
-                logger.progress("Dorothea execution finished successfully", status="FINISHED")
+                logger.progress("Progeny execution finished successfully", status="FINISHED")
 
         except:
-            errstr = "The Dorothea execution failed. See logs"
+            errstr = "The Progeny execution failed. See logs"
             logger.error(errstr)
             raise Exception(errstr)
 
@@ -133,15 +133,15 @@ class RUNNER(Tool):
             os.chdir(self.execution_path)
             logger.debug("Execution path: {}".format(self.execution_path))
 
-            logger.debug("Dorothea execution")
-            self.execute_dorothea(input_files, self.configuration)
+            logger.debug("Progeny execution")
+            self.execute_progeny(input_files, self.configuration)
 
-            # TAR output images from dorothea execution
+            # TAR output images from progeny execution
             # self.img_path = self.execution_path + "/img/"
             # if os.path.isdir(self.img_path) and len(os.listdir(self.img_path)) != 0:
             #     # if img folder exists and is not empty
-            #     logger.debug("TAR Dorothea images")
-            #     self.dorothea.tar_result(self.img_path, self.TAR_FILENAME)
+            #     logger.debug("TAR Progeny images")
+            #     self.progeny.tar_result(self.img_path, self.TAR_FILENAME)
             #     shutil.rmtree(self.img_path)  # remove image folder
             #
             # else:
@@ -156,7 +156,7 @@ class RUNNER(Tool):
             return output_files, output_metadata
 
         except:
-            errstr = "VRE Dorothea RUNNER pipeline failed. See logs"
+            errstr = "VRE Progeny RUNNER pipeline failed. See logs"
             logger.fatal(errstr)
             raise Exception(errstr)
 
@@ -173,15 +173,15 @@ class RUNNER(Tool):
         :rtype: dict, dict
         """
         try:
-            confidence_level = self.configuration.get('confidence_level', '.')
+            organism = self.configuration.get('organism', '.')
 
             for metadata in output_metadata:  # for each output file in output_metadata
                 out_id = metadata["name"]
                 pop_output_path = list()  # list of tuples (path, type of output)
                 if out_id in output_files.keys():
-                    if out_id == "dorothea_scores":
+                    if out_id == "progeny_scores":
                         file_path = self.execution_path + "/" + out_id + "_" + \
-                                    confidence_level.replace(' ', '') + ".csv"
+                                    organism.replace(' ', '') + ".csv"
                     else:
                         file_path = self.execution_path + "/" + self.TAR_FILENAME
 
