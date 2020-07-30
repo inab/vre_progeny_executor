@@ -19,7 +19,7 @@ message(top)
 
 message("Creating output file")
 
-file_csv = paste0("progeny_scores_", organism, ".csv")
+file_csv = paste0("progeny_scores_", organism, "_", top, ".csv")
 message(file_csv)
 
 message("Reading input file")
