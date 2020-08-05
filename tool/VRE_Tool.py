@@ -31,7 +31,7 @@ class RUNNER(Tool):
 
     MASKED_KEYS = {'execution', 'project', 'description', 'organism', 'zscores', 'top'}  # arguments from config.json
     R_SCRIPT_PATH = "/home/user/vre_progeny_executor/lib/run_progeny.r"
-    TAR_FILENAME = ""
+    # TAR_FILENAME = ""
     debug_mode = False  # If True debug mode is on, False otherwise
 
     def __init__(self, configuration=None):
@@ -172,6 +172,7 @@ class RUNNER(Tool):
         :rtype: dict, dict
         """
         try:
+            global file_path
             organism = self.configuration.get('organism', '.')
 
             for metadata in output_metadata:  # for each output file in output_metadata
@@ -181,8 +182,8 @@ class RUNNER(Tool):
                     if out_id == "progeny_scores":
                         file_path = self.execution_path + "/" + out_id + "_" + \
                                     organism.replace(' ', '') + ".csv"
-                    else:
-                        file_path = self.execution_path + "/" + self.TAR_FILENAME
+                    # else:
+                    #     file_path = self.execution_path + "/" + self.TAR_FILENAME
 
                     pop_output_path.append((file_path, "file"))  # add file_path and file_type
 
