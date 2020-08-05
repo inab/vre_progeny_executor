@@ -17,7 +17,6 @@
    limitations under the License.
 """
 import os
-import shutil
 import time
 
 from basic_modules.tool import Tool

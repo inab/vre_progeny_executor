@@ -16,9 +16,9 @@
 Workflows
 =========
 
-.. automodule:: mg_process_test.workflow
+.. automodule:: progeny_test.workflow
 
    Test Tool
    -----------
-   .. autoclass:: mg_process_test.workflow.test_workflow.process_test
+   .. autoclass:: progeny_test.workflow.test_workflow.process_test
       :members:

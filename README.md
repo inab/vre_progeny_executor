@@ -1,8 +1,9 @@
-# iPC VRE Dorothea Executor
+# iPC VRE Progeny Executor
 
 Example pipelines file that is ready to run in the VRE matching the code in the HowTo documentation.
 
-This repo structure dorothea and tools can be forked and used as the base template for new tools and dorothea. It should have all of the base functionality and is set up for unit testing and with pylint to ensure code clarity.
+This repo structure dorothea and tools can be forked and used as the base template for new tools and dorothea. 
+It should have all of the base functionality and is set up for unit testing and with pylint to ensure code clarity.
 
 ## Requirements
 
@@ -24,15 +25,15 @@ Directly from GitHub:
 ```bash
 cd $HOME
 
-git clone https://github.com/inab/vre_dorothea_executor.git
+git clone https://github.com/inab/vre_progeny_executor.git
 
-cd vre_dorothea_executor
+cd vre_progeny_executor
 ```
 
 Create the Python environment:
 
 ```bash
-python3 -m venv $HOME/vre_dorothea_executor/venv
+python3 -m venv $HOME/vre_progeny_executor/venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
