@@ -18,6 +18,12 @@ sudo apt install python3.6-pip python3.6-dev python3.6-venv
 sudo apt install r-base
 ```
 
+- [PROGENy](https://github.com/saezlab/progeny)
+
+```bash
+./Rprogeny.sh
+```
+
 ## Installation
 
 Directly from GitHub:
@@ -36,12 +42,6 @@ Create the Python environment:
 python3 -m venv $HOME/vre_progeny_executor/venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
-
-Create the R environment:
-
-```bash
-./Rrequirements.sh
 ```
 
 ## Run the Wrapper
