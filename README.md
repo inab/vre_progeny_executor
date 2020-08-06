@@ -21,7 +21,10 @@ sudo apt install r-base
 - [PROGENy](https://github.com/saezlab/progeny)
 
 ```bash
+sudo su
+su www-data -s /bin/bash
 ./Rprogeny.sh
+su user
 ```
 
 ## Installation
@@ -30,9 +33,7 @@ Directly from GitHub:
 
 ```bash
 cd $HOME
-
 git clone https://github.com/inab/vre_progeny_executor.git
-
 cd vre_progeny_executor
 ```
 
