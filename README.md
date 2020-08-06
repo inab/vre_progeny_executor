@@ -38,6 +38,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Create the R environment:
+
+```bash
+./Rrequirements.sh
+```
+
 ## Run the Wrapper
 ```bash
 ./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
