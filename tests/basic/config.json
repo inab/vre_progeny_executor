@@ -17,6 +17,10 @@
             "value": "test"
         },
         {
+            "name": "description",
+            "value": "PROGENy test"
+        },
+        {
             "name": "organism",
             "value": "Human"
 

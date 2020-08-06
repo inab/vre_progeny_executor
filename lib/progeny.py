@@ -52,9 +52,9 @@ class Progeny:
             '--vanilla',
             input_r_script_path,
             input_csv_path,
-            str(args_list[2]),
             str(args_list[3]),
-            str(args_list[4])
+            str(args_list[4]),
+            str(args_list[5])
         ]
 
         print(cmd)
