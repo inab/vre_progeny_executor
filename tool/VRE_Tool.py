@@ -22,7 +22,6 @@ import time
 from basic_modules.tool import Tool
 from utils import logger
 from lib.progeny import Progeny
-from shutil import copy
 
 
 class RUNNER(Tool):
@@ -76,9 +75,6 @@ class RUNNER(Tool):
                 raise Exception(errstr)
 
             print(arguments)
-
-            # Saving CSV input file
-            copy(csv_input_path, self.execution_path)
 
             # Progeny execution
             process = self.progeny.execute_progeny_rscript(csv_input_path, arguments, self.R_SCRIPT_PATH)
