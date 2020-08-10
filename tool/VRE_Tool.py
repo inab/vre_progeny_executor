@@ -174,6 +174,7 @@ class RUNNER(Tool):
         try:
             global file_path
             organism = self.configuration.get('organism', '.')
+            top = self.configuration.get('top', '.')
 
             for metadata in output_metadata:  # for each output file in output_metadata
                 out_id = metadata["name"]
@@ -181,7 +182,7 @@ class RUNNER(Tool):
                 if out_id in output_files.keys():
                     if out_id == "progeny_scores":
                         file_path = self.execution_path + "/" + out_id + "_" + \
-                                    organism.replace(' ', '') + ".csv"
+                                    organism.replace(' ', '') + "_" + str(top).replace(' ', '') + ".csv"
                     # else:
                     #     file_path = self.execution_path + "/" + self.TAR_FILENAME
 
