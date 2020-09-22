@@ -20,6 +20,8 @@ sudo apt install r-base
 
 - [PROGENy](https://github.com/saezlab/progeny)
 
+Install R library dependencies:
+
 ```bash
 sudo su
 su www-data -s /bin/bash
