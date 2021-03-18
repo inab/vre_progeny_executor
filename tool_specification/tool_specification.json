@@ -1,110 +1,135 @@
 {
-  "_id": "progeny",
-  "name": "PROGENy",
-  "title": "Pathway RespOnsive GENes",
-  "short_description": "Method to infer pathway activities from gene expression based on perturbation experiments.",
-  "long_description": "PROGENy is a method that leverages a common core of Pathway RespOnsive GENes based on publicly available perturbation experiments. It overcomes the limitations of (1) mapping the expression directly on the pathways components disregarding the effect of post-translationals modifications, and (2) the specific experimental conditions of downstream signatues. PROGENy can (i) recover the effect of known driver mutations, (ii) provide or improve strong markers for drug indications, and (iii) distinguish between oncogenic and tumor suppressor pathways for patient survival.",
-  "url": "https:\/\/gitbub.com\/inab/vre_progeny_executor",
-  "publication": "10.1038\/s41467-017-02391-6, 10.1016\/j.bbagrm.2019.194431",
-  "owner": {
-    "author": "Rosa Hernansaiz Ballesteros",
-    "institution": "Heidelberg University, Faculty of Medicine,",
-    "contact": "rosa.hernansaiz@bioquant.uni-heidleberg.de",
-    "url": "http:\/\/saezlab.org"
-  },
-  "keywords": [
-    "Pathways",
-    "singel-cell RNA",
-    "RNAseq",
-    "microarray"
-  ],
-  "keywords_tool": [
-    "progeny"
-  ],
-  "infrastructure": {
-    "memory": 8,
-    "cpus": 2,
-    "executable": "\/home\/user\/vre_progeny_executor\/VRE_RUNNER",
-    "clouds": {
-      "mug-irb": {
-        "launcher": "SGE",
-        "default_cloud": true
-      }
-    }
-  },
-  "input_files": [
-    {
-      "name": "input_reads",
-      "description": "Gene expression matrix with HGNC/MGI symbols in rows and samples in columns.",
-      "help": "In order to run PROGENy in single-cell RNAseq data, it also accepts Seurat and SingleCellExperiment object, taking the normalized counts for the computation.",
-      "file_type": [
-        "CSV"
-      ],
-      "data_type": [
-        "expression_profile"
-      ],
-      "required": true,
-      "allow_multiple": false
-    }
-  ],
-  "input_files_public_dir": [],
-  "input_files_combinations": [
-    {
-      "description": "Analyse gene expression matrix",
-      "input_files": [
-        "input_reads"
-      ]
-    }
-  ],
-  "arguments": [
-    {
-      "name": "organism",
-      "description": "The model organism",
-      "help": "Human or Mouse",
-      "type": "enum_multiple",
-      "enum_items": {
-        "description": [
-          "Human",
-          "Mouse"
-        ],
-        "name": [
-          "Human",
-          "Mouse"
-        ]
-      },
-      "default": [
-        "Human"
-      ]
+    "_id": "dorothea",
+    "name": "DoRothEA",
+    "title": "Discriminant Regulon Expression Analysis",
+    "short_description": "Framework to estimate single sample TF activities from gene expression data based on a manually curated human regulon.",
+    "long_description": "DoRothEA is a gene set resource containing signed transcription factor (TF) - target interactions first described in Garcia-Alonso et al., 2019. The collection of a TF and its transcriptional targets is defined as regulon. DoRothEA regulons were curated and collected from different types of evidence such as literature curated resources, ChIP-seq peaks, TF binding site motifs and interactions inferred directly from gene expression.",
+    "url": "https:\/\/gitbub.com\/inab\/vre_dorothea_executor",
+    "publication": "10.1158\/0008-5472.can-17-1679, 10.1101\/gr.240663.118, 10.1016\/j.bbagrm.2019.194431",
+    "owner": {
+        "author": "Rosa Hernansaiz Ballesteros",
+        "institution": "Heidelberg University, Faculty of Medicine,",
+        "contact": "rosa.hernansaiz@bioquant.uni-heidleberg.de",
+        "url": "http:\/\/saezlab.org"
     },
-    {
-      "name": "zscores",
-      "description": "Return z-score directly or normalized.",
-      "help": "The normalized z-score values range between -1 and 1.",
-      "type": "character",
-      "default": "TRUE"
-    },
-    {
-      "name": "top",
-      "description": "Number of genes to create the model matrix.",
-      "help": "The top n genes are selected according to significance (p-value).",
-      "type": "integer",
-      "default": 100
-    }
-  ],
-  "has_custom_viewer": true,
-  "output_files": [
-    {
-      "name": "progeny_scores",
-      "required": true,
-      "allow_multiple": false,
-      "file": {
-        "file_type": "CSV",
-        "data_type": "dorothea_scores",
-        "meta_data": {
-          "visible": true,
-          "description": "A matrix with z-scores where samples are in columns and pathways in rows."
+    "keywords": [
+        "transcription factors",
+        "transcriptomics"
+    ],
+    "keywords_tool": [
+        "dorothea",
+        "viper",
+        "RNAseq",
+        "microarray"
+    ],
+    "infrastructure": {
+        "memory": 8,
+        "cpus": 2,
+        "executable": "\/home\/user\/vre_dorothea_executor\/VRE_RUNNER",
+        "clouds": {
+            "mug-irb": {
+                "launcher": "SGE",
+                "default_cloud": true
+            }
         }
-      }
-    }
-  ]
+    },
+    "input_files": [
+        {
+            "name": "input_reads",
+            "description": "Gene expression matrix with genes (HGNC\/MGI symbols) in rows and samples in columns.",
+            "help": "The object can be a simple matrix\/data frame or complexer objects such as ExpressionSet Seurat or SingleCellExperiment objects.",
+            "file_type": [
+                "CSV"
+            ],
+            "data_type": [
+                "expression_profile"
+            ],
+            "required": true,
+            "allow_multiple": false
+        }
+    ],
+    "input_files_public_dir": [],
+    "input_files_combinations": [
+        {
+            "description": "Analyse gene expression matrix",
+            "input_files": [
+                "input_reads"
+            ]
+        }
+    ],
+    "arguments": [
+        {
+            "name": "confidence_level",
+            "description": "Confidence level based on the number of supporting evidence.",
+            "help": "The confidence assigment comprises five levels, ranging from A (highest confidence) to E (lowest confidence).",
+            "type": "enum_multiple",
+            "enum_items": {
+                "description": [
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E"
+                ],
+                "name": [
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E"
+                ]
+            },
+            "default": [
+                "A,B,C"
+            ]
+        },
+        {
+            "name": "minsize",
+            "description": "Minimal number of genes in regulons.",
+            "help": "Number of genes targeted by a specific transcription factor.",
+            "type": "integer",
+            "default": 5
+        },
+        {
+            "name": "method",
+            "description": "Character string indicating the method",
+            "help": "Character string indicating the method for computing the single samples signature, either scale, rank, mad, ttest or none",
+            "type": "enum",
+            "enum_items": {
+                "description": [
+                    "none",
+                    "scale",
+                    "rank",
+                    "mad",
+                    "ttest"
+                ],
+                "name": [
+                    "none",
+                    "scale",
+                    "rank",
+                    "mad",
+                    "ttest"
+                ]
+            },
+            "default": [
+                "none"
+            ]
+        }
+    ],
+    "has_custom_viewer": true,
+    "output_files": [
+        {
+            "name": "dorothea_scores",
+            "required": true,
+            "allow_multiple": false,
+            "file": {
+                "file_type": "CSV",
+                "data_type": "dorothea_scores",
+                "meta_data": {
+                    "visible": true,
+                    "description": "Normalized enrichment scores for Transciption Factors"
+                }
+            }
+        }
+    ]
 }
