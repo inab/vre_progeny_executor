@@ -1,7 +1,7 @@
 {
     "input_files": [
         {
-            "name": "input_reads",
+            "name": "expression_matrix",
             "value": "unique_file_id_5f0d9cada30326.2860077",
             "required": true,
             "allow_multiple": false
@@ -10,20 +10,19 @@
     "arguments": [
         {
             "name": "execution",
-            "value": "/home/user/vre_progeny_executor/tests/basic/run000"
+            "value": "tests/basic/run000"
         },
         {
             "name": "project",
-            "value": "test"
+            "value": "PROGENy"
         },
         {
             "name": "description",
-            "value": "PROGENy test"
+            "value": "test"
         },
         {
             "name": "organism",
             "value": "Human"
-
         },
         {
             "name": "zscores",
@@ -44,7 +43,7 @@
                 "data_type": "progeny_scores",
                 "meta_data": {
                     "visible": true,
-                    "description": "Z-scores for cancer-related pathways"
+                    "description": "Z-scores for cancer-related pathways."
                 }
             }
         }
