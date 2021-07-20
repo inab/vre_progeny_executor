@@ -11,22 +11,16 @@ organism <- args[2]
 zscores <- as.logical(args[3])
 top <- as.numeric(args[4])
 
-message(progeny_file)
-message(organism)
-message(zscores)
-message(top)
-
-message("Creating output file")
-
-file_csv <- paste0("progeny_scores_", organism, "_", top, ".csv")
-
-message(file_csv)
-
-message("Reading input file")
+message(paste("\t- expression matrix:", progeny_file, sep = " "))
+message(paste("\t- organism:", organism, sep = " "))
+message(paste("\t- z-scores:", zscores, sep = " "))
+message(paste("\t- top:", top, sep = " "))
 
 progeny_data <- as.matrix(read.csv(progeny_file, row.names = 1))
 
-message("Running PROGENy")
+file_csv <- paste0("progeny_scores_", organism, "_", top, ".csv")
+
+message("RUNNING PROGENy")
 
 PathwayActivity_counts <- progeny::progeny(progeny_data,
                                            scale = TRUE,
@@ -37,8 +31,8 @@ PathwayActivity_counts <- progeny::progeny(progeny_data,
 
 PathwayActivity_counts <- as.data.frame(t(PathwayActivity_counts))
 
-message("Writing output file")
-
 write.csv(PathwayActivity_counts, file_csv, quote = F)
+
+message(paste("PROGENy ended successfully; see results", normalizePath(file_csv), sep = " "))
 
 message("FINISHING PROGENy PROCESS")
