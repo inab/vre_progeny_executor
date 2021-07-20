@@ -16,7 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'Laura Rodriguez-Navas <https://orcid.org/0000-0003-4929-1219> and Rosa Hernansaiz-Ballesteros <https://orcid.org/0000-0001-8536-8848>'
+__author__ = 'Laura Rodriguez-Navas <https://orcid.org/0000-0003-4929-1219>' \
+             'Rosa Hernansaiz-Ballesteros <https://orcid.org/0000-0001-8536-8848>'
 __copyright__ = '© 2020-2021 Barcelona Supercomputing Center (BSC), ES' \
                 '© 2020-2021 Heidelberg University Hospital (UKL-HD), DE'
 __license__ = 'Apache 2.0'

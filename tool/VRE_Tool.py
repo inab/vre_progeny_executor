@@ -35,9 +35,9 @@ class progenyTool(Tool):
 
     def __init__(self, configuration=None):
         """
-        Init function
+        Init function.
 
-        :param configuration: a dictionary containing parameters that define how the operation should be carried out,
+        :param configuration: A dictionary containing parameters that define how the operation should be carried out,
         which are specific to PROGENy tool.
         :type configuration: dict
         """
@@ -56,7 +56,7 @@ class progenyTool(Tool):
         self.current_dir = os.path.abspath(os.path.dirname(__file__))
         self.parent_dir = os.path.abspath(self.current_dir + "/../")
         self.execution_path = self.configuration.get('execution', '.')
-        if not os.path.isabs(self.execution_path):  # convert to abspath if is relpath
+        if not os.path.isabs(self.execution_path):
             self.execution_path = os.path.normpath(os.path.join(self.parent_dir, self.execution_path))
 
         self.arguments = dict(
@@ -96,12 +96,18 @@ class progenyTool(Tool):
             output_id = output_metadata[0]["name"]
             output_type = output_metadata[0]["file"]["file_type"].lower()
             output_file_path = glob(self.execution_path + "/*." + output_type)[0]
-            output_files[output_id] = [(output_file_path, "file")]
+            if os.path.isfile(output_file_path):
+                output_files[output_id] = [(output_file_path, "file")]
 
-            return output_files, output_metadata
+                return output_files, output_metadata
+
+            else:
+                errstr = "Output file {} not created. See logs.".format(output_file_path)
+                logger.fatal(errstr)
+                raise Exception(errstr)
 
         except:
-            errstr = "VRE PROGENy tool execution failed. See logs."
+            errstr = "PROGENy tool execution failed. See logs."
             logger.fatal(errstr)
             raise Exception(errstr)
 
@@ -117,7 +123,7 @@ class progenyTool(Tool):
         try:
             # Get input file
             expression_matrix = input_files.get("expression_matrix")
-            if not os.path.isabs(expression_matrix):  # convert to abspath if is relpath
+            if not os.path.isabs(expression_matrix):
                 expression_matrix = os.path.normpath(os.path.join(self.parent_dir, expression_matrix))
 
             # Get arguments
@@ -154,12 +160,12 @@ class progenyTool(Tool):
                     time.sleep(0.1)
 
                 if rc is not None and rc != 0:
-                    logger.progress("Something went wrong inside the Rscript execution. See logs.", status="WARNING")
+                    logger.progress("Something went wrong inside the Rscript execution. See logs", status="WARNING")
                 else:
-                    logger.progress("Rscript execution finished successfully.", status="FINISHED")
+                    logger.progress("Rscript execution finished successfully", status="FINISHED")
 
             else:
-                errstr = "expression matrix input file must be defined."
+                errstr = "expression_matrix input file must be defined."
                 logger.fatal(errstr)
                 raise Exception(errstr)
 
