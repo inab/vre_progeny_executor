@@ -1,4 +1,5 @@
-if (!require("librarian")) install.packages("librarian")
+if (!require("librarian"))
+  install.packages("librarian")
 librarian::shelf(dplyr, tibble, ggplot2, progeny, cran_repo = "https://cloud.r-project.org/")
 
 message("STARTING PROGENy PROCESS")
@@ -22,17 +23,23 @@ file_csv <- paste0("progeny_scores_", organism, "_", top, ".csv")
 
 message("RUNNING PROGENy")
 
-PathwayActivity_counts <- progeny::progeny(progeny_data,
-                                           scale = TRUE,
-                                           organism = organism,
-                                           top = top,
-                                           perm = 10000,
-                                           z_scores = zscores)
+PathwayActivity_counts <- progeny::progeny(
+  progeny_data,
+  scale = TRUE,
+  organism = organism,
+  top = top,
+  perm = 10000,
+  z_scores = zscores
+)
 
 PathwayActivity_counts <- as.data.frame(t(PathwayActivity_counts))
 
 write.csv(PathwayActivity_counts, file_csv, quote = F)
 
-message(paste("PROGENy ended successfully; see results", normalizePath(file_csv), sep = " "))
+message(paste(
+  "PROGENy ended successfully; see results",
+  normalizePath(file_csv),
+  sep = " "
+))
 
 message("FINISHING PROGENy PROCESS")
