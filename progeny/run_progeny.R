@@ -1,5 +1,5 @@
 if (!require("librarian"))
-  install.packages("librarian")
+  install.packages("librarian", repos = "https://cloud.r-project.org/")
 librarian::shelf(dplyr, tibble, ggplot2, progeny, cran_repo = "https://cloud.r-project.org/")
 
 message("STARTING PROGENy PROCESS")
