@@ -2,8 +2,8 @@
     "_id": "progeny",
     "name": "PROGENy",
     "title": "Pathway RespOnsive GENes",
-    "short_description": "Method to infer pathway activities from gene expression based on perturbation experiments.",
-    "long_description": "PROGENy is a method that leverages a common core of Pathway RespOnsive GENes based on publicly available perturbation experiments. It overcomes the limitations of (1) mapping the expression directly on the pathways components disregarding the effect of post-translationals modifications, and (2) the specific experimental conditions of downstream signatues. PROGENy can (i) recover the effect of known driver mutations, (ii) provide or improve strong markers for drug indications, and (iii) distinguish between oncogenic and tumor suppressor pathways for patient survival.",
+    "short_description": "Method to infer pathway activities from gene expression based on perturbation experiments",
+    "long_description": "PROGENy is a method that leverages a common core of Pathway RespOnsive GENes based on publicly available perturbation experiments. It overcomes the limitations of (1) mapping the expression directly on the pathways components disregarding the effect of post-translationals modifications, and (2) the specific experimental conditions of downstream signatues. PROGENy can (i) recover the effect of known driver mutations, (ii) provide or improve strong markers for drug indications, and (iii) distinguish between oncogenic and tumor suppressor pathways for patient survival",
     "url": "https:\/\/gitbub.com\/inab\/vre_progeny_executor",
     "publication": "10.1038\/s41467-017-02391-6, 10.1016\/j.bbagrm.2019.194431",
     "owner": {
@@ -13,14 +13,14 @@
         "url": "http:\/\/saezlab.org"
     },
     "keywords": [
-        "pathways",
         "single-cell RNA",
         "RNAseq",
-        "microarray",
-        "transcriptomics"
+        "transcriptomics",
+        "expression profiles"
     ],
     "keywords_tool": [
-        "progeny"
+        "pathways",
+        "microarray"
     ],
     "infrastructure": {
         "memory": 8,
@@ -35,9 +35,9 @@
     },
     "input_files": [
         {
-            "name": "input_reads",
-            "description": "Gene expression matrix with genes (HGNC\/MGI symbols) in rows and samples in columns.",
-            "help": "In order to run PROGENy in single-cell RNAseq data, it also accepts Seurat and SingleCellExperiment object, taking the normalized counts for the computation.",
+            "name": "expression_matrix",
+            "description": "Gene expression matrix with genes (HGNC\/MGI symbols) in rows and samples in columns",
+            "help": "In order to run PROGENy in single-cell RNAseq data, it also accepts Seurat and SingleCellExperiment object, taking the normalized counts for the computation",
             "file_type": [
                 "CSV"
             ],
@@ -51,9 +51,9 @@
     "input_files_public_dir": [],
     "input_files_combinations": [
         {
-            "description": "Pathway analysis of gene expression matrix",
+            "description": "Run PROGENy pipeline",
             "input_files": [
-                "input_reads"
+                "expression_matrix"
             ]
         }
     ],
@@ -79,15 +79,15 @@
         },
         {
             "name": "zscores",
-            "description": "Return z-score directly or normalized.",
-            "help": "The normalized z-score values range between -1 and 1.",
+            "description": "Return z-score directly or normalized",
+            "help": "The normalized z-score values range between -1 and 1",
             "type": "string",
             "default": "TRUE"
         },
         {
             "name": "top",
-            "description": "Number of genes to create the model matrix.",
-            "help": "The top n genes are selected according to significance (p-value).",
+            "description": "Number of genes to create the model matrix",
+            "help": "The top n genes are selected according to significance (p-value)",
             "type": "integer",
             "default": 100
         }
@@ -103,7 +103,7 @@
                 "data_type": "progeny_scores",
                 "meta_data": {
                     "visible": true,
-                    "description": "A matrix with z-scores where samples are in columns and pathways in rows."
+                    "description": "Z-scores for cancer-related pathways"
                 }
             }
         }

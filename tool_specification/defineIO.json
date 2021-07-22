@@ -2,9 +2,9 @@
     "_id": "progeny",
     "input_files": [
         {
-            "name": "input_reads",
-            "description": "Gene expression matrix with genes (HGNC\/MGI symbols) in rows and samples in columns.",
-            "help": "In order to run PROGENy in single-cell RNAseq data, it also accepts Seurat and SingleCellExperiment object, taking the normalized counts for the computation.",
+            "name": "expression_matrix",
+            "description": "Gene expression matrix with genes (HGNC\/MGI symbols) in rows and samples in columns",
+            "help": "In order to run PROGENy in single-cell RNAseq data, it also accepts Seurat and SingleCellExperiment object, taking the normalized counts for the computation",
             "file_type": [
                 "CSV"
             ],
@@ -18,9 +18,9 @@
     "input_files_public_dir": [],
     "input_files_combinations": [
         {
-            "description": "Pathway analysis of gene expression matrix",
+            "description": "Run PROGENy pipeline",
             "input_files": [
-                "input_reads"
+                "expression_matrix"
             ]
         }
     ],
@@ -46,15 +46,15 @@
         },
         {
             "name": "zscores",
-            "description": "Return z-score directly or normalized.",
-            "help": "The normalized z-score values range between -1 and 1.",
+            "description": "Return z-score directly or normalized",
+            "help": "The normalized z-score values range between -1 and 1",
             "type": "string",
             "default": "TRUE"
         },
         {
             "name": "top",
-            "description": "Number of genes to create the model matrix.",
-            "help": "The top n genes are selected according to significance (p-value).",
+            "description": "Number of genes to create the model matrix",
+            "help": "The top n genes are selected according to significance (p-value)",
             "type": "integer",
             "default": 100
         }
@@ -69,7 +69,7 @@
                 "data_type": "progeny_scores",
                 "meta_data": {
                     "visible": true,
-                    "description": "A matrix with z-scores where samples are in columns and pathways in rows."
+                    "description": "Z-scores for cancer-related pathways"
                 }
             }
         }

@@ -43,7 +43,7 @@
                 "data_type": "progeny_scores",
                 "meta_data": {
                     "visible": true,
-                    "description": "Z-scores for cancer-related pathways."
+                    "description": "Z-scores for cancer-related pathways"
                 }
             }
         }
